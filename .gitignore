@@ -1,0 +1,4 @@
+/vendor/
+/tests/cache/
+.DS_store
+composer.lock
