@@ -31,7 +31,7 @@ Or add to your require list on composer.json file:
 ```json
 {
     "require": {
-        "torugo/util": "^1.0.0"
+        "torugo/util": "^0.1.0"
     }
 }
 ```
