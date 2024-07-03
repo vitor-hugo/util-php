@@ -6,6 +6,8 @@ Library with useful classes and methods.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Classes](#classes)
+  - [Version](#version)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -32,6 +34,25 @@ Or add to your require list on composer.json file:
         "torugo/util": "^1.0.0"
     }
 }
+```
+
+# Classes
+
+## Version
+
+Validates and compare version numbers.
+The version number must follow [semver.org rules](https://semver.org)
+
+### Usage <!-- omit in toc -->
+
+```php
+use Torugo\Util\Version\Version;
+
+$version = new Version("1.0.0");
+
+$version->compareTo("1.0.0");      // returns NumComparison::Equal
+$version->compareTo("1.0.1");      // returns NumComparison::Smaller
+$version->compareTo("1.0.0-beta"); // returns NumComparison::Bigger
 ```
 
 # Contribute
