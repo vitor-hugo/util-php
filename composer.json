@@ -1,0 +1,26 @@
+{
+  "name": "torugo/util",
+  "description": "Library with useful classes and methods",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Torugo\\Util\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "vitor-hugo",
+      "email": "vitor83dev@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require-dev": {
+    "phpunit/phpunit": "^11.2"
+  }
+}
