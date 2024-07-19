@@ -28,7 +28,7 @@ class SemVer
 
     public function setVersion(string $version)
     {
-        $this->version = $version;
+        $this->_version = $version;
         $this->initVersionProps();
     }
 
