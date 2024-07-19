@@ -79,11 +79,13 @@ class SemVer
         $compared = $this->extractVersionParts($version);
 
         $versionNumbers = ["major", "minor", "patch"];
+        $comparison = VersionComparison::Equal;
         foreach ($compared as $key => $value) {
             if (in_array($key, $versionNumbers)) {
                 $vNumber = $this->{$key} <=> $value;
                 if ($vNumber != 0) {
-                    return VersionComparison::tryFrom($vNumber);
+                    $comparison = VersionComparison::tryFrom($vNumber);
+                    break;
                 }
                 continue;
             }
@@ -91,17 +93,19 @@ class SemVer
             if ($key == "preRelease") {
                 $comp = $this->comparePreReleaseVersion($value);
                 if ($comp != VersionComparison::Equal) {
-                    return $comp;
+                    $comparison = $comp;
+                    break;
                 }
             }
 
             if ($key == "build") {
                 $comp = $this->build <=> $value;
-                return VersionComparison::tryFrom($comp);
+                $comparison = VersionComparison::tryFrom($comp);
+                break;
             }
         }
 
-        return VersionComparison::Equal;
+        return $comparison;
     }
 
 
