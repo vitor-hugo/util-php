@@ -9,7 +9,7 @@ use Torugo\Util\Enums\VersionComparison;
  * Validates and compare version numbers.
  * The version number must follow [semver.org rules](https://semver.org)
  */
-class Version
+class SemVer
 {
     private string $_version = "";
     public int $major = 0;
