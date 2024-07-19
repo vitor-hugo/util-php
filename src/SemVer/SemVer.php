@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Torugo\Util\SemVer\Enums\VersionComparison;
 
 /**
- * Validates and compare version numbers.
+ * Validates and compare semantic version numbers.
  * The version number must follow [semver.org rules](https://semver.org)
  */
 class SemVer
