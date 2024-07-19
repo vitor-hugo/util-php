@@ -3,7 +3,7 @@
 namespace Torugo\Util\Version;
 
 use InvalidArgumentException;
-use Torugo\Util\Enums\VersionComparison;
+use Torugo\Util\SemVer\Enums\VersionComparison;
 
 /**
  * Validates and compare version numbers.
