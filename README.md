@@ -7,7 +7,7 @@ Library with useful classes and methods.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Classes](#classes)
-  - [Version](#version)
+  - [SemVer](#semver)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -38,21 +38,21 @@ Or add to your require list on composer.json file:
 
 # Classes
 
-## Version
+## SemVer
 
-Validates and compare version numbers.
+Validates and compare semantic version numbers.
 The version number must follow [semver.org rules](https://semver.org)
 
 ### Usage <!-- omit in toc -->
 
 ```php
-use Torugo\Util\Version\Version;
+use Torugo\Util\SemVer\SemVer;
 
-$version = new Version("1.0.0");
+$version = new SemVer("1.0.0");
 
-$version->compareTo("1.0.0");      // returns NumComparison::Equal
-$version->compareTo("1.0.1");      // returns NumComparison::Smaller
-$version->compareTo("1.0.0-beta"); // returns NumComparison::Bigger
+$version->compareTo("1.0.0");      // returns VersionComparison::Equal
+$version->compareTo("1.0.1");      // returns VersionComparison::Smaller
+$version->compareTo("1.0.0-beta"); // returns VersionComparison::Bigger
 ```
 
 # Contribute
