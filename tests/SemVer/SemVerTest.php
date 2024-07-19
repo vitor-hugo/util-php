@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Version;
+namespace Tests\SemVer;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use Torugo\Util\Enums\VersionComparison;
-use Torugo\Util\Version\Version;
+use Torugo\Util\SemVer\Enums\VersionComparison;
+use Torugo\Util\SemVer\SemVer;
 
 #[Group("Version")]
 #[TestDox("Version")]
-class VersionTest extends TestCase
+class SemVerTest extends TestCase
 {
     #[TestDox("Should extract version parts correctly")]
     public function testShouldBeValid()
     {
-        $version = new Version("1.1.0-alpha+134");
+        $version = new SemVer("1.1.0-alpha+134");
         $this->assertEquals(1, $version->major);
         $this->assertEquals(1, $version->minor);
         $this->assertEquals(0, $version->patch);
@@ -50,7 +50,7 @@ class VersionTest extends TestCase
         ];
 
         foreach ($versions as $v) {
-            $version = new Version($v[0]);
+            $version = new SemVer($v[0]);
             $this->assertEquals(VersionComparison::Smaller, $version->compareTo($v[1]));
         }
     }
@@ -80,7 +80,7 @@ class VersionTest extends TestCase
         ];
 
         foreach ($versions as $v) {
-            $version = new Version($v[0]);
+            $version = new SemVer($v[0]);
             $this->assertEquals(VersionComparison::Bigger, $version->compareTo($v[1]));
         }
     }
@@ -106,7 +106,7 @@ class VersionTest extends TestCase
         ];
 
         foreach ($versions as $v) {
-            $version = new Version($v[0]);
+            $version = new SemVer($v[0]);
             $this->assertEquals(VersionComparison::Equal, $version->compareTo($v[1]));
         }
     }
@@ -117,6 +117,6 @@ class VersionTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("Invalid version number '1.0'.");
-        new Version("1.0");
+        new SemVer("1.0");
     }
 }
