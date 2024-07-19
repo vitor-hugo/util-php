@@ -9,8 +9,8 @@ use PHPUnit\Framework\TestCase;
 use Torugo\Util\SemVer\Enums\VersionComparison;
 use Torugo\Util\SemVer\SemVer;
 
-#[Group("Version")]
-#[TestDox("Version")]
+#[Group("SemVer")]
+#[TestDox("SemVer")]
 class SemVerTest extends TestCase
 {
     #[TestDox("Should extract version parts correctly")]
