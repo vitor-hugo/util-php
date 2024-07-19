@@ -119,4 +119,14 @@ class SemVerTest extends TestCase
         $this->expectExceptionMessage("Invalid version number '1.0'.");
         new SemVer("1.0");
     }
+
+
+    #[TestDox("Should set a new value")]
+    public function testShouldSetANewVersion()
+    {
+        $new = "2.0.0";
+        $version = new SemVer("1.0.0");
+        $version->setVersion($new);
+        $this->assertEquals($new, $version->getVersion());
+    }
 }
