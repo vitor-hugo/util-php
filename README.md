@@ -7,7 +7,7 @@ Library with useful classes and methods.
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Utilities](#utilities)
-  - [CDT](#cdt)
+  - [CDT (Compressed Date and Time)](#cdt-compressed-date-and-time)
     - [get](#get)
     - [fromTimestamp](#fromtimestamp)
     - [fromDateTime](#fromdatetime)
@@ -44,9 +44,9 @@ Or add to your require list on composer.json file:
 
 # Utilities
 
-## CDT
+## CDT (Compressed Date and Time)
 
-CDT (Compressed Date and Time) is a way of storing date and time
+CDT is a way of storing date and time
 including milliseconds.
 
 ```php 
