@@ -6,13 +6,14 @@ Library with useful classes and methods.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [CDT](#cdt)
-  - [get](#get)
-  - [fromTimestamp](#fromtimestamp)
-  - [fromDateTime](#fromdatetime)
-  - [toMicrotime](#tomicrotime)
-  - [toDateTime](#todatetime)
-- [SemVer](#semver)
+- [Utilities](#utilities)
+  - [CDT](#cdt)
+    - [get](#get)
+    - [fromTimestamp](#fromtimestamp)
+    - [fromDateTime](#fromdatetime)
+    - [toMicrotime](#tomicrotime)
+    - [toDateTime](#todatetime)
+  - [SemVer](#semver)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -41,7 +42,9 @@ Or add to your require list on composer.json file:
 }
 ```
 
-# CDT
+# Utilities
+
+## CDT
 
 CDT (Compressed Date and Time) is a way of storing date and time
 including milliseconds.
@@ -50,7 +53,7 @@ including milliseconds.
 use Torugo\Util\CDT\CDT;
 ```
 
-## get
+### get
 
 Returns a CDT from current date/time.
 
@@ -58,7 +61,7 @@ Returns a CDT from current date/time.
 $cdt = CDT::get(); // returns something like "SGVU9Z2WV"
 ```
 
-## fromTimestamp
+### fromTimestamp
 
 Generates a CDT from a timestamp or [microtime](https://www.php.net/manual/pt_BR/function.microtime.php).
 
@@ -66,7 +69,7 @@ Generates a CDT from a timestamp or [microtime](https://www.php.net/manual/pt_BR
 $cdt = CDT::fromTimestamp(416410245.1234); // returns "6VX4790YA"
 ```
 
-## fromDateTime
+### fromDateTime
 
 Generates a CDT from a PHP DateTime object.
 
@@ -75,7 +78,7 @@ $dateTime = \DateTime::createFromFormat("Y-m-d H:i:s.u", "2017-08-01 14:45:56.78
 $cdt = CDT::fromDateTime($dateTime); // returns "OU0H0K0LX"
 ```
 
-## toMicrotime
+### toMicrotime
 
 Converts a CDT to a microtime (float) number.
 
@@ -83,7 +86,7 @@ Converts a CDT to a microtime (float) number.
 $micro = CDT::toMicrotime("6VX4790YA"); // returns 416410245.1234
 ```
 
-## toDateTime
+### toDateTime
 
 Converts a CDT to a PHP DateTime object.
 
@@ -91,12 +94,12 @@ Converts a CDT to a PHP DateTime object.
 $dateTime = CDT::toDateTime("6VX4790YA"); // returns an instance of DateTime
 ```
 
-# SemVer
+## SemVer
 
 Validates and compare semantic version numbers.
 The version number must follow [semver.org rules](https://semver.org)
 
-## Usage <!-- omit in toc -->
+### Usage <!-- omit in toc -->
 
 ```php
 use Torugo\Util\SemVer\SemVer;
