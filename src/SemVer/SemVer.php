@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Torugo\Util\Version;
+namespace Torugo\Util\SemVer;
 
 use InvalidArgumentException;
 use Torugo\Util\SemVer\Enums\VersionComparison;
