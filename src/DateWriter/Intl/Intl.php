@@ -36,4 +36,13 @@ class Intl
         "fr" => ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
         "pt" => ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
     ];
+
+
+    const ORDINAL_SUFFIX = [
+        "de" => ["te", "te", "te", "te"],
+        "en" => ["st", "nd", "rd", "th"],
+        "es" => ["º", "º", "º", "º"],
+        "fr" => ["er", "e", "e", "e"],
+        "pt" => ["º", "º", "º", "º"],
+    ];
 }
