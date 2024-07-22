@@ -19,6 +19,7 @@ Library with useful classes and methods.
     - [Usage](#usage)
   - [SemVer](#semver)
 - [Traits](#traits)
+  - [Empty Values Trait](#empty-values-trait)
   - [From Array Factory](#from-array-factory)
 - [Contribute](#contribute)
 - [License](#license)
@@ -172,6 +173,25 @@ $version->compareTo("1.0.0-beta"); // returns VersionComparison::Bigger
 ---
 
 # Traits
+
+## Empty Values Trait
+
+Returns an empty value for a specific type.
+
+```php
+use Torugo\Util\Traits\EmptyValues;
+
+class MyClass {
+    use EmptyValues;
+
+    function myFunction() {
+        // ...
+        $type = $this->getEmptyValueForType(gettype($var));
+        // ...
+    }
+}
+
+```
 
 ## From Array Factory
 
