@@ -98,6 +98,8 @@ Converts a CDT to a PHP DateTime object.
 $dateTime = CDT::toDateTime("6VX4790YA"); // returns an instance of DateTime
 ```
 
+---
+
 ## DateWriter
 
 Transforms DateTime objects to written date/time.
@@ -145,6 +147,8 @@ $dw->write("[São Paulo,] j [de] %{F} [de] Y");
 $dw->write("*{l}");
 // TERÇA-FEIRA
 ```
+
+---
 
 ## SemVer
 
