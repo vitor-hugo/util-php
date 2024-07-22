@@ -18,6 +18,8 @@ Library with useful classes and methods.
     - [Internationalization](#internationalization)
     - [Usage](#usage)
   - [SemVer](#semver)
+- [Traits](#traits)
+  - [From Array Factory](#from-array-factory)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -165,6 +167,44 @@ $version = new SemVer("1.0.0");
 $version->compareTo("1.0.0");      // returns VersionComparison::Equal
 $version->compareTo("1.0.1");      // returns VersionComparison::Smaller
 $version->compareTo("1.0.0-beta"); // returns VersionComparison::Bigger
+```
+
+---
+
+# Traits
+
+## From Array Factory
+
+Instantiates a class from a key=>value array.
+
+1. The keys must be equal to the properties names.
+2. All properties must be setted as public.
+
+### Example <!-- omit in toc -->
+
+```php
+use Torugo\Util\Traits\FromArrayFactory;
+
+class UserDto
+{
+    use FromArrayFactory;
+
+    public string $name;
+    public string $email;
+    public string $password;
+}
+
+$payload = [
+    "name" => "Full User Name",
+    "email" => "user@gmail.com",
+    "password" => "SuperStrongPassword!",
+];
+
+$instance = UserDto::fromArray($payload);
+// $instance->name ==> "Full User Name"
+// $instance->email ==> "user@gmail.com"
+// $instance->password ==> "SuperStrongPassword!"
+
 ```
 
 # Contribute
