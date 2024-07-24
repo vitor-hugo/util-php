@@ -125,24 +125,20 @@ class DateWriter
 
     private function resolveUppercaseMarks(string $value): string
     {
-        preg_replace_callback("/\*{.*}/", function ($matches) {
+        return preg_replace_callback("/\*{.*}/", function ($matches) {
             $v = $matches[0];
             $v = str_replace(["*{", "}"], "", $v);
             return mb_strtoupper($v);
         }, $value);
-
-        return $value;
     }
 
 
     private function resolveLowercaseMarks(string $value): string
     {
-        preg_replace_callback("/%{.*}/", function ($matches) {
+        return preg_replace_callback("/%{.*}/", function ($matches) {
             $v = $matches[0];
             $v = str_replace(["%{", "}"], "", $v);
-            return  mb_strtolower($v);
+            return mb_strtolower($v);
         }, $value);
-
-        return $value;
     }
 }
