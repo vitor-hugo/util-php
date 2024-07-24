@@ -13,7 +13,7 @@ trait EmptyValues
     {
         $type = strtolower($type);
 
-        $empty = match ($type) {
+        return match ($type) {
             "array" => [],
             "boolean", "bool" => false,
             "double", "float" => 0.0,
@@ -22,7 +22,5 @@ trait EmptyValues
             "string" => "",
             default => null
         };
-
-        return $empty;
     }
 }
