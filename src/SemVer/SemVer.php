@@ -11,7 +11,7 @@ use Torugo\Util\SemVer\Enums\VersionComparison;
  */
 class SemVer
 {
-    private string $_version = "";
+    private string $_version;
     public int $major = 0;
     public int $minor = 0;
     public int $patch = 0;
@@ -21,12 +21,12 @@ class SemVer
     private const PATTERN = "/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/";
 
 
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->_version;
     }
 
-    public function setVersion(string $version)
+    public function setVersion(string $version): void
     {
         $this->_version = $version;
         $this->initVersionProps();
@@ -49,7 +49,7 @@ class SemVer
         $this->major = $parts["major"];
         $this->minor = $parts["minor"];
         $this->patch = $parts["patch"];
-        $this->preRelease = $parts["preRelease"];
+        $this->preRelease = (string) $parts["preRelease"];
         $this->build = $parts["build"];
     }
 
@@ -91,7 +91,7 @@ class SemVer
             }
 
             if ($key == "preRelease") {
-                $comp = $this->comparePreReleaseVersion($value);
+                $comp = $this->comparePreReleaseVersion((string) $value);
                 if ($comp != VersionComparison::Equal) {
                     $comparison = $comp;
                     break;
