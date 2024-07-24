@@ -5,7 +5,7 @@ namespace Torugo\Util\DateWriter;
 require_once __DIR__ . "/Intl/Intl.php";
 
 use DateTime;
-use Intl;
+use Torugo\Util\DateWriter\Intl\Intl;
 
 class DateWriter
 {
@@ -14,17 +14,16 @@ class DateWriter
      * @param \DateTime $dateTime PHP DateTime instance
      * @param string $language Language used to write the names of months and days of the week
      */
-    public function __construct(private DateTime $dateTime, private string $language = "en")
+    public function __construct(private readonly DateTime $dateTime, private string $language = "en")
     {
         $this->loadLanguage($language);
     }
 
 
-    private function loadLanguage(string $language)
+    private function loadLanguage(string $language): void
     {
         match (strtolower($language)) {
             "de" => $this->language = "de",
-            "en", "en-us" => $this->language = "en",
             "es" => $this->language = "es",
             "fr" => $this->language = "fr",
             "pt", "ptbr", "pt-br" => $this->language = "pt",
@@ -96,7 +95,7 @@ class DateWriter
             "U" => $dt->format("U"),
         ];
 
-        $formatArray = str_split($format, 1);
+        $formatArray = str_split($format);
 
         $result = "";
         $ignore = false;
@@ -126,11 +125,10 @@ class DateWriter
 
     private function resolveUppercaseMarks(string $value): string
     {
-        $value = preg_replace_callback("/\*{.*}/", function ($matches) {
+        preg_replace_callback("/\*{.*}/", function ($matches) {
             $v = $matches[0];
             $v = str_replace(["*{", "}"], "", $v);
-            $v = mb_strtoupper($v);
-            return $v;
+            return mb_strtoupper($v);
         }, $value);
 
         return $value;
@@ -139,11 +137,10 @@ class DateWriter
 
     private function resolveLowercaseMarks(string $value): string
     {
-        $value = preg_replace_callback("/\%{.*}/", function ($matches) {
+        preg_replace_callback("/%{.*}/", function ($matches) {
             $v = $matches[0];
             $v = str_replace(["%{", "}"], "", $v);
-            $v = mb_strtolower($v);
-            return $v;
+            return  mb_strtolower($v);
         }, $value);
 
         return $value;
