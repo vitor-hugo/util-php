@@ -11,7 +11,6 @@ trait FromArrayFactory
     /**
      * Instantiates a class from a key=>value array.
      * The keys must be equal to the properties names.
-     * @return object
      */
     public static function fromArray(array $data): self
     {
@@ -36,7 +35,7 @@ trait FromArrayFactory
             }
 
             // If the property is not present on $data and doesn't has a default value
-            if ($prop->hasDefaultValue() == false) {
+            if (!$prop->hasDefaultValue()) {
                 if ($isNullable) {
                     $obj->{$propName} = null;
                 } else {
@@ -57,7 +56,6 @@ trait FromArrayFactory
     private static function getProperties(object $obj): array
     {
         $reflection = new ReflectionObject($obj);
-        $properties = $reflection->getProperties();
-        return $properties;
+        return $reflection->getProperties();
     }
 }
