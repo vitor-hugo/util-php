@@ -2,6 +2,8 @@
 
 namespace Tests\CDT;
 
+use DateTime;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +25,7 @@ class CDTTest extends TestCase
     #[TestDox("Should create from PHP DateTime object")]
     public function testShouldCreateFromDateTime()
     {
-        $cdt = CDT::fromDateTime(\DateTime::createFromFormat("Y-m-d H:i:s.u", "2017-08-01 14:45:56.789"));
+        $cdt = CDT::fromDateTime(DateTime::createFromFormat("Y-m-d H:i:s.u", "2017-08-01 14:45:56.789"));
         $this->assertEquals("OU0H0K0LX", $cdt);
     }
 
@@ -42,7 +44,7 @@ class CDTTest extends TestCase
     #[TestDox("Should throw InvalidArgumentException on invalid timestamp")]
     public function testShouldThrowWhenTimestampIsInvalid()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("CDT: Invalid timestamp value.");
         CDT::fromTimestamp(-10);
     }
@@ -62,7 +64,7 @@ class CDTTest extends TestCase
     public function testShouldConvertToDateTimeObject()
     {
         $dateTime = CDT::toDateTime("6VX4790YA");
-        $this->assertInstanceOf(\DateTime::class, $dateTime);
+        $this->assertInstanceOf(DateTime::class, $dateTime);
         $this->assertEquals("1983", $dateTime->format("Y"));
         $this->assertEquals("03", $dateTime->format("m"));
         $this->assertEquals("13", $dateTime->format("d"));

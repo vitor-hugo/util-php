@@ -2,6 +2,8 @@
 
 namespace Tests\DateWriter;
 
+use DateTime;
+use DateTimeZone;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +16,7 @@ class DateWriterTest extends TestCase
     #[TestDox("Should write date skipping everything between square brackets")]
     public function testShouldWriteDateSkippingEverythingBetweenSquareBrackets()
     {
-        $dateTime = \DateTime::createFromFormat("Y-m-d H:i:s", "2017-08-01 15:30:45");
+        $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", "2017-08-01 15:30:45");
         $dw = new DateWriter($dateTime, "pt");
         $result = $dw->write("[São Paulo,] j [de] %{F} [de] Y");
         $this->assertEquals("São Paulo, 1 de agosto de 2017", $result);
@@ -23,7 +25,7 @@ class DateWriterTest extends TestCase
     #[TestDox("Should load languages correctly")]
     public function testShouldBeValid()
     {
-        $dateTime = \DateTime::createFromFormat("Y-m-d H:i:s", "2017-08-01 15:30:45");
+        $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", "2017-08-01 15:30:45");
         $languages = [
             "de" => "August",
             "en" => "August",
@@ -43,7 +45,7 @@ class DateWriterTest extends TestCase
     #[TestDox("Should test all available options")]
     public function testAllAvailableOptions()
     {
-        $dateTime = \DateTime::createFromFormat("Y-m-d H:i:s.u", "2017-08-01 15:30:45.8765", new \DateTimeZone("America/Sao_Paulo"));
+        $dateTime = DateTime::createFromFormat("Y-m-d H:i:s.u", "2017-08-01 15:30:45.8765", new DateTimeZone("America/Sao_Paulo"));
         $dw = new DateWriter($dateTime, "pt");
 
         $options = [
@@ -99,7 +101,7 @@ class DateWriterTest extends TestCase
     #[TestDox("Should convert marked parts to uppercase")]
     public function testShouldConvertMarkedPartsToUppercase()
     {
-        $dateTime = \DateTime::createFromFormat("Y-m-d H:i:s", "2017-08-01 15:30:45");
+        $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", "2017-08-01 15:30:45");
         $dw = new DateWriter($dateTime, "pt");
 
         $options = [
@@ -120,7 +122,7 @@ class DateWriterTest extends TestCase
     #[TestDox("Should convert marked parts to lowercase")]
     public function testShouldConvertMarkedPartsToLowercase()
     {
-        $dateTime = \DateTime::createFromFormat("Y-m-d H:i:s", "1983-03-13 13:30:45");
+        $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", "1983-03-13 13:30:45");
         $dw = new DateWriter($dateTime, "en");
 
         $options = [

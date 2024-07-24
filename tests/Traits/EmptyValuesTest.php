@@ -5,6 +5,8 @@ namespace Tests\Traits;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use Throwable;
 use Torugo\Util\Traits\EmptyValues;
 
 #[Group("Traits")]
@@ -31,6 +33,10 @@ class EmptyValuesTest extends TestCase
         }
 
         $empty = $this->getEmptyValueForType("object");
-        $this->assertTrue((new \ReflectionClass($empty))->isAnonymous());
+        try {
+            $this->assertTrue((new ReflectionClass($empty))->isAnonymous());
+        } catch (Throwable $th) {
+            $this->fail($th->getMessage());
+        }
     }
 }
