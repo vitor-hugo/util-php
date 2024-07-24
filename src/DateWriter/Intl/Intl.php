@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Torugo\Util\DateWriter\Intl;
+
 class Intl
 {
     const LONG_MONTH = [
