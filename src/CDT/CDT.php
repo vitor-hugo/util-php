@@ -4,6 +4,8 @@ namespace Torugo\Util\CDT;
 
 use DateTime;
 use DateTimeZone;
+use InvalidArgumentException;
+use Throwable;
 
 /**
  * CDT (Compressed Date and Time) is a way of storing date and time including milliseconds.
@@ -38,26 +40,26 @@ class CDT
         $parts = explode(".", (string) $timestamp);
 
         $sec = $parts[0];
-        $sec = strtoupper(base_convert((string) $sec, 10, 36));
+        $sec = strtoupper(base_convert($sec, 10, 36));
 
         $milli = $parts[1] ?? "0";
-        $milli = strtoupper(base_convert((string) $milli, 10, 36));
+        $milli = strtoupper(base_convert($milli, 10, 36));
         $milli = str_pad($milli, 3, "0", STR_PAD_LEFT);
 
-        return "{$sec}{$milli}";
+        return "$sec$milli";
     }
 
 
     /**
      * Generates a CDT from a timestamp or microtime
      * @param int|float $timestamp
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return string
      */
     public static function fromTimestamp(int|float $timestamp): string
     {
         if ($timestamp < 0 || $timestamp > 99999999999) {
-            throw new \InvalidArgumentException("CDT: Invalid timestamp value.");
+            throw new InvalidArgumentException("CDT: Invalid timestamp value.");
         }
 
         return self::assembleCDT($timestamp);
@@ -66,7 +68,7 @@ class CDT
 
     /**
      * Generates a CDT from a PHP DateTime object
-     * @param \DateTime $dateTime
+     * @param DateTime $dateTime
      * @return string
      */
     public static function fromDateTime(DateTime $dateTime): string
@@ -94,7 +96,7 @@ class CDT
     /**
      * Converts a CDT to a PHP DateTime object
      * @param string $cdt
-     * @return \DateTime|false
+     * @return DateTime|false
      */
     public static function toDateTime(string $cdt): DateTime|false
     {
@@ -103,8 +105,12 @@ class CDT
         }
 
         $timestamp = self::toMicrotime($cdt);
-        $timeZone = new DateTimeZone(date_default_timezone_get());
-        $date = DateTime::createFromFormat('U.u', (string) $timestamp, $timeZone);
+        try {
+            $timeZone = new DateTimeZone(date_default_timezone_get());
+            $date = DateTime::createFromFormat('U.u', (string) $timestamp, $timeZone);
+        } catch (Throwable) {
+            return false;
+        }
 
         return $date;
     }
@@ -123,6 +129,6 @@ class CDT
         $sec = base_convert($parts[0], 36, 10);
         $milli = str_pad(base_convert($parts[1], 36, 10), 4, "0", STR_PAD_LEFT);
 
-        return (double) "{$sec}.{$milli}";
+        return (double) "$sec.$milli";
     }
 }
