@@ -19,6 +19,10 @@ Library with useful classes and methods.
     - [Usage](#usage)
   - [SemVer](#semver)
   - [TBase64 (url safe)](#tbase64-url-safe)
+  - [TRandom](#trandom)
+    - [Random strings](#random-strings)
+    - [Random Numbers](#random-numbers)
+    - [Random Numbers with leading zeros](#random-numbers-with-leading-zeros)
 - [Traits](#traits)
   - [Empty Values Trait](#empty-values-trait)
   - [From Array Factory](#from-array-factory)
@@ -184,6 +188,52 @@ use Torugo\Util\TBase64\TBase64;
 
 $b64 = TBase64::encode("My String"); // => "TXkgU3RyaW5n"
 $decoded = TBase64::decode($b64); // => "My String"
+```
+
+---
+
+## TRandom
+
+Generates random strings and numbers
+
+```php
+use Torugo\Util\TRandom\TRandom;
+```
+
+### Random strings
+
+Sets the source chars used to generate random strings.
+
+```php
+$rnd = TRandom::string(10); // Generates 10 chars long random string
+```
+
+#### Default source characters <!-- omit in toc -->
+
+The default source characters are:  
+`0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!?#-_~^*`
+
+#### Setting the source characters <!-- omit in toc -->
+```php
+TRandom::setCharacters("0123456789ABCDEF");
+TRandom::string(6); // Generates something like "E4A010"
+```
+
+### Random Numbers
+
+Generates a random integer between the given range.
+
+```php
+TRandom::number(1001, 9999); // Generates a random number between 1001 and 9999
+```
+
+### Random Numbers with leading zeros
+
+Generates a positive random integer with leading zeros.
+
+```php
+TRandom::lzNumber(1, 9999, 4); // 0001 ... 9999
+TRandom::lzNumber(1001, 999999, null); // 001001 ... 999999
 ```
 
 ---
