@@ -105,12 +105,8 @@ class CDT
         }
 
         $timestamp = self::toMicrotime($cdt);
-        try {
-            $timeZone = new DateTimeZone(date_default_timezone_get());
-            $date = DateTime::createFromFormat('U.u', (string) $timestamp, $timeZone);
-        } catch (Throwable) {
-            return false;
-        }
+        $timeZone = new DateTimeZone(date_default_timezone_get());
+        $date = DateTime::createFromFormat('U.u', (string) $timestamp, $timeZone);
 
         return $date;
     }
