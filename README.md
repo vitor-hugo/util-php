@@ -18,6 +18,7 @@ Library with useful classes and methods.
     - [Internationalization](#internationalization)
     - [Usage](#usage)
   - [SemVer](#semver)
+  - [TBase64 (url safe)](#tbase64-url-safe)
 - [Traits](#traits)
   - [Empty Values Trait](#empty-values-trait)
   - [From Array Factory](#from-array-factory)
@@ -168,6 +169,21 @@ $version = new SemVer("1.0.0");
 $version->compareTo("1.0.0");      // returns VersionComparison::Equal
 $version->compareTo("1.0.1");      // returns VersionComparison::Smaller
 $version->compareTo("1.0.0-beta"); // returns VersionComparison::Bigger
+```
+
+---
+
+## TBase64 (url safe)
+
+Encodes and decodes strings to Base64 that can be used on URLs.
+
+### Usage <!-- omit in toc -->
+
+```php
+use Torugo\Util\TBase64\TBase64;
+
+$b64 = TBase64::encode("My String"); // => "TXkgU3RyaW5n"
+$decoded = TBase64::decode($b64); // => "My String"
 ```
 
 ---
