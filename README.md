@@ -33,6 +33,7 @@ Library with useful classes and methods.
 
 - PHP 8+
 - PHP mbstring extension installed and loaded.
+- PHP openssl extension installed and loaded.
 - Composer 2+
 
 
