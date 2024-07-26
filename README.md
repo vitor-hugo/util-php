@@ -19,6 +19,9 @@ Library with useful classes and methods.
     - [Usage](#usage)
   - [SemVer](#semver)
   - [TBase64 (url safe)](#tbase64-url-safe)
+  - [TEncrypt](#tencrypt)
+    - [Usage](#usage-1)
+    - [Cipher algorithm](#cipher-algorithm)
   - [TRandom](#trandom)
     - [Random strings](#random-strings)
     - [Random Numbers](#random-numbers)
@@ -190,6 +193,112 @@ use Torugo\Util\TBase64\TBase64;
 $b64 = TBase64::encode("My String"); // => "TXkgU3RyaW5n"
 $decoded = TBase64::decode($b64); // => "My String"
 ```
+
+---
+
+## TEncrypt
+
+Encrypts/Decrypts strings using symmetric keys.
+
+> [!NOTE]
+> **Symmetric key:**  
+> Means that the key used for encryption must be the same for decryption.  
+> Each cipher algorithm has a minimum key length in bytes, check the table bellow.
+
+### Usage
+
+```php
+use Torugo\Util\TEncrypt\TEncrypt;
+use Torugo\Util\TEncrypt\Enums\TCipher;
+
+$text = "May the force be with you!";
+$key = "ye-PaJYnFPluROpIFo146zhQNvKHbUkIKNMc2rkd8rE";
+
+$encrypted = TEncrypt::encrypt($text, $key,);  // Encrypts the text
+$decrypt = TEncrypt::decrypt($encrypted,$key); // Decrypts the encrypted text
+```
+
+### Cipher algorithm
+
+Use the TCipher enum to set a new cipher algorithm.
+
+**Setting the cipher algorithm**:
+```php
+TEncrypt::setCipher(TCipher::CAMELLIA_256_OFB);
+```
+
+List of all supported cipher algorithms, default is `AES_256_CFB`.
+
+| Algorithm                                         | Min key length in bytes |
+| ------------------------------------------------- | :---------------------: |
+| AES_128_CBC                                       |           16            |
+| AES_128_CFB                                       |           16            |
+| AES_128_CFB1                                      |           16            |
+| AES_128_CFB8                                      |           16            |
+| AES_128_CTR                                       |           16            |
+| AES_128_OFB                                       |           16            |
+| AES_128_WRAP_PAD                                  |           16            |
+| AES_192_CBC                                       |           24            |
+| AES_192_CFB                                       |           24            |
+| AES_192_CFB1                                      |           24            |
+| AES_192_CFB8                                      |           24            |
+| AES_192_CTR                                       |           24            |
+| AES_192_OFB                                       |           24            |
+| AES_192_WRAP_PAD                                  |           24            |
+| AES_256_CBC                                       |           32            |
+| <span style="color: green">**AES_256_CFB**</span> |           32            |
+| AES_256_CFB1                                      |           32            |
+| AES_256_CFB8                                      |           32            |
+| AES_256_CTR                                       |           32            |
+| AES_256_OFB                                       |           32            |
+| AES_256_WRAP_PAD                                  |           32            |
+| ARIA_128_CBC                                      |           16            |
+| ARIA_128_CFB                                      |           16            |
+| ARIA_128_CFB1                                     |           16            |
+| ARIA_128_CFB8                                     |           16            |
+| ARIA_128_CTR                                      |           16            |
+| ARIA_128_OFB                                      |           16            |
+| ARIA_192_CBC                                      |           24            |
+| ARIA_192_CFB                                      |           24            |
+| ARIA_192_CFB1                                     |           24            |
+| ARIA_192_CFB8                                     |           24            |
+| ARIA_192_CTR                                      |           24            |
+| ARIA_192_OFB                                      |           24            |
+| ARIA_256_CBC                                      |           32            |
+| ARIA_256_CFB                                      |           32            |
+| ARIA_256_CFB1                                     |           32            |
+| ARIA_256_CFB8                                     |           32            |
+| ARIA_256_CTR                                      |           32            |
+| ARIA_256_OFB                                      |           32            |
+| CAMELLIA_128_CBC                                  |           16            |
+| CAMELLIA_128_CFB                                  |           16            |
+| CAMELLIA_128_CFB1                                 |           16            |
+| CAMELLIA_128_CFB8                                 |           16            |
+| CAMELLIA_128_CTR                                  |           16            |
+| CAMELLIA_128_OFB                                  |           16            |
+| CAMELLIA_192_CBC                                  |           24            |
+| CAMELLIA_192_CFB                                  |           24            |
+| CAMELLIA_192_CFB1                                 |           24            |
+| CAMELLIA_192_CFB8                                 |           24            |
+| CAMELLIA_192_CTR                                  |           24            |
+| CAMELLIA_192_OFB                                  |           24            |
+| CAMELLIA_256_CBC                                  |           32            |
+| CAMELLIA_256_CFB                                  |           32            |
+| CAMELLIA_256_CFB1                                 |           32            |
+| CAMELLIA_256_CFB8                                 |           32            |
+| CAMELLIA_256_CTR                                  |           32            |
+| CAMELLIA_256_OFB                                  |           32            |
+| CHACHA20                                          |           32            |
+| DES_EDE_CBC                                       |           16            |
+| DES_EDE_CFB                                       |           16            |
+| DES_EDE3_CFB                                      |           24            |
+| DES_EDE3_CFB1                                     |           24            |
+| DES_EDE3_CFB8                                     |           24            |
+| DES_EDE3_OFB                                      |           24            |
+| SM4_CBC                                           |           16            |
+| SM4_CFB                                           |           16            |
+| SM4_CTR                                           |           16            |
+| SM4_OFB                                           |           16            |
 
 ---
 
