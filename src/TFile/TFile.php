@@ -35,7 +35,7 @@ class TFile
         }
 
         if ($createIfNotExists) {
-            return self::createFile($path);
+            return self::create($path);
         }
 
         return false;
@@ -47,7 +47,7 @@ class TFile
      * @param string $path Path where file will be created
      * @return bool Return if file was created or not
      */
-    public static function createFile(string $path): bool
+    public static function create(string $path): bool
     {
         $file = @fopen($path, "a");
 

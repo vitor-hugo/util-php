@@ -42,7 +42,7 @@ class TFileTest extends TestCase
     #[TestDox("Should return false when cannot create a file")]
     public function testShouldReturnFalseWhenCannotCreateAFile()
     {
-        $this->assertFalse(TFile::createFile(__DIR__ . "/TestFiles/readonly.txt"));
+        $this->assertFalse(TFile::create(__DIR__ . "/TestFiles/readonly.txt"));
     }
 
 
