@@ -17,8 +17,8 @@ class TFileTest extends TestCase
     #[TestDox("Should return true when file exist")]
     public function testShouldReturnTrueWhenFileExist()
     {
-        $this->assertTrue(TFile::fileExists(__DIR__ . "/TestFiles/.env"));
-        $this->assertTrue(TFile::fileExists(__DIR__ . "/TestFiles/source.json"));
+        $this->assertTrue(TFile::exists(__DIR__ . "/TestFiles/.env"));
+        $this->assertTrue(TFile::exists(__DIR__ . "/TestFiles/source.json"));
     }
 
 
@@ -26,15 +26,15 @@ class TFileTest extends TestCase
     #[WithoutErrorHandler()]
     public function testShouldReturnFalseWhenFileNotExist()
     {
-        $this->assertFalse(TFile::fileExists(__DIR__ . "/TestFiles/env.txt"));
-        $this->assertFalse(TFile::fileExists(__DIR__ . "/TestFiles/ source.json"));
+        $this->assertFalse(TFile::exists(__DIR__ . "/TestFiles/env.txt"));
+        $this->assertFalse(TFile::exists(__DIR__ . "/TestFiles/ source.json"));
     }
 
 
     #[TestDox("Should create file if not exists")]
     public function testShouldCreateFileIfNotExists()
     {
-        $this->assertTrue(TFile::fileExists(__DIR__ . "/TestFiles/.test", true));
+        $this->assertTrue(TFile::exists(__DIR__ . "/TestFiles/.test", true));
         unlink(__DIR__ . "/TestFiles/.test");
     }
 

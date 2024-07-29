@@ -13,7 +13,7 @@ class TFile
      */
     public function __construct(private string $path)
     {
-        if (!self::fileExists($path)) {
+        if (!self::exists($path)) {
             throw new InvalidArgumentException("TFile: The file does not exist or is not readable.");
         }
     }
@@ -25,7 +25,7 @@ class TFile
      * @param string $createIfNotExists
      * @return bool
      */
-    public static function fileExists(string $path, bool $createIfNotExists = false): bool
+    public static function exists(string $path, bool $createIfNotExists = false): bool
     {
         $file = @fopen($path, "r");
 
