@@ -22,6 +22,13 @@ Library with useful classes and methods.
   - [TEncrypt](#tencrypt)
     - [Usage](#usage-1)
     - [Cipher algorithm](#cipher-algorithm)
+  - [TFile](#tfile)
+    - [Check if file exists](#check-if-file-exists)
+    - [Create a file](#create-a-file)
+    - [Checking if a file is writable](#checking-if-a-file-is-writable)
+    - [Load file lines](#load-file-lines)
+    - [Parsing .env files](#parsing-env-files)
+    - [Parsing .json files](#parsing-json-files)
   - [TRandom](#trandom)
     - [Random strings](#random-strings)
     - [Random Numbers](#random-numbers)
@@ -299,6 +306,72 @@ List of all supported cipher algorithms, default is `AES_256_CFB`.
 | SM4_CFB                                           |           16            |
 | SM4_CTR                                           |           16            |
 | SM4_OFB                                           |           16            |
+
+---
+
+## TFile
+
+Manipulates text files parsing its content.
+
+```php
+use Torugo\Util\TFile\TFile;
+```
+
+### Check if file exists
+
+The static method `exists` returns if a file exists in a given path,
+you can use the argument `createIfNotExists` to create a file if it not exist.
+
+```php
+TFile::exists(string $path, bool $createIfNotExists): bool
+```
+
+### Create a file
+
+The static method `create` tries to create a file on a given path.  
+Returns `true` on success or `false` if not.
+
+```php
+TFile::create(string $path): bool
+```
+
+### Checking if a file is writable
+
+```php
+$file = new TFile(__DIR__ . "/file.txt");
+
+$isWritable = $file->isWritable();
+```
+
+### Load file lines
+
+Returns the lines of a text file as an array
+
+```php
+$file = new TFile(__DIR__ . "/file.txt");
+
+$lines = $file->getLines();
+```
+
+### Parsing .env files
+
+Parses the content of an `env` file as an associative array.
+
+```php
+$file = new TFile(__DIR__ . "/.env");
+
+$env = $file->parseEnv();
+```
+
+### Parsing .json files
+Loads a JSON file content and returns it as an associative array.  
+In case of invalidation returns an empty array.
+
+```php
+$file = new TFile(__DIR__ . "/file.json");
+
+$json = $file->parseJson();
+```
 
 ---
 
