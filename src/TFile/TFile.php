@@ -75,7 +75,7 @@ class TFile
      * Parses the content of an env file and returns it as an associative array.
      * @return array
      */
-    public function loadEnv(): array
+    public function parseEnv(): array
     {
         $lines = $this->getLines();
 

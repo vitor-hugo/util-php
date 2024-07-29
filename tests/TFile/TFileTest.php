@@ -69,10 +69,10 @@ class TFileTest extends TestCase
 
     #[TestDox("Should load env file content as associative array")]
     #[WithoutErrorHandler()]
-    public function testShouldLoadEnvFile()
+    public function testShouldParseEnvFile()
     {
         $file = new TFile(__DIR__ . "/TestFiles/.env");
-        $env = $file->loadEnv();
+        $env = $file->parseEnv();
 
         $this->assertArrayHasKey("DB_ADDRESS", $env);
         $this->assertArrayHasKey("DB_PORT", $env);
