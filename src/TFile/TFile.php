@@ -64,7 +64,7 @@ class TFile
      * Returns the lines of a text file as an array
      * @return array
      */
-    public function loadLines(): array
+    public function getLines(): array
     {
         $lines = @file($this->path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         return $lines ?? [];
@@ -77,7 +77,7 @@ class TFile
      */
     public function loadEnv(): array
     {
-        $lines = $this->loadLines();
+        $lines = $this->getLines();
 
         $result = [];
         foreach ($lines as $line) {
