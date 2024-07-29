@@ -1,0 +1,12 @@
+{
+  "dbAddress": "localhost",
+  "dbPort": 3306,
+  "dbName": "TORUGO",
+  "dbUser": "UTORUGO",
+  "dbPass": "MySup3rStr0ngP4ssw0rd!",
+  "author": {
+    "name": "Author's Name",
+    "email": "author@host.com",
+    "url": "https://github.com/author"
+  }
+}
