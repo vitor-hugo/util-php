@@ -95,10 +95,10 @@ class TFileTest extends TestCase
 
     #[TestDox("Should load json file content as associative array")]
     #[WithoutErrorHandler()]
-    public function testShouldLoadJsonFile()
+    public function testShouldParseJsonFile()
     {
         $file = new TFile(__DIR__ . "/TestFiles/source.json");
-        $json = $file->loadJson();
+        $json = $file->parseJson();
 
         $this->assertIsArray($json);
 
@@ -118,7 +118,7 @@ class TFileTest extends TestCase
     public function testShouldReturnAnEmptyArrayWhenJsonIsInvalid()
     {
         $file = new TFile(__DIR__ . "/TestFiles/empty.txt");
-        $json = $file->loadJson();
+        $json = $file->parseJson();
         $this->assertEquals([], $json);
     }
 

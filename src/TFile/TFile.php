@@ -152,7 +152,7 @@ class TFile
      * @param int $flags Bitmask of `JSON_BIGINT_AS_STRING`, `JSON_INVALID_UTF8_IGNORE`, `JSON_INVALID_UTF8_SUBSTITUTE`, `JSON_THROW_ON_ERROR`. The behaviour of these constants is described on the JSON constants page.
      * @return array
      */
-    public function loadJson(
+    public function parseJson(
         int $depth = 512,
         int $flags = 0
     ): array {
