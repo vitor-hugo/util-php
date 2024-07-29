@@ -7,7 +7,6 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Torugo\Util\TBase64\TBase64;
 use Torugo\Util\TEncrypt\Enums\TCipher;
