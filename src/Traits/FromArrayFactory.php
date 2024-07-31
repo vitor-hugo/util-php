@@ -37,7 +37,7 @@ trait FromArrayFactory
             }
 
             // If the property is not present on $data and doesn't has a default value
-            if (!$prop->hasDefaultValue() && !$isReadOnly) {
+            if (!$prop->isInitialized($obj) && !$prop->hasDefaultValue() && !$isReadOnly) {
                 if ($isNullable) {
                     $obj->{$propName} = null;
                 } else {
