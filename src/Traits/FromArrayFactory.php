@@ -65,8 +65,20 @@ trait FromArrayFactory
             $publicOnly ? ReflectionProperty::IS_PUBLIC : null
         );
     }
+
+    /**
+     * Returns all public properties as a key=>value pair array.
+     * @return array
+     */
+    public function toArray(): array
     {
-        $reflection = new ReflectionObject($obj);
-        return $reflection->getProperties();
+        $props = self::getProperties($this, true);
+
+        $result = [];
+        foreach ($props as $prop) {
+            $result[$prop->getName()] = $prop->getValue($this);
+        }
+
+        return $result;
     }
 }
