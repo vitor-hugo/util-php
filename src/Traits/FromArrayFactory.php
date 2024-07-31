@@ -23,6 +23,7 @@ trait FromArrayFactory
 
             $type = "unknown";
             $isNullable = false;
+            $isReadOnly = $prop->isReadOnly();
 
             if ($propType != null && method_exists($propType, "getName")) {
                 $type = $propType->getName();
@@ -35,7 +36,7 @@ trait FromArrayFactory
             }
 
             // If the property is not present on $data and doesn't has a default value
-            if (!$prop->hasDefaultValue()) {
+            if (!$prop->hasDefaultValue() && !$isReadOnly) {
                 if ($isNullable) {
                     $obj->{$propName} = null;
                 } else {
