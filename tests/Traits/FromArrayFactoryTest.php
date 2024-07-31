@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -18,6 +19,14 @@ class StubClass
     public array $array;
     public mixed $mixed;
     public string $name;
+
+    protected string $x;
+    private mixed $y;
+
+
+    public function __construct(readonly string $z = "z")
+    {
+    }
 }
 
 #[Group("Traits")]
@@ -25,10 +34,8 @@ class StubClass
 #[TestDox("FromArrayFactory")]
 class FromArrayFactoryTest extends TestCase
 {
-    use FromArrayFactory;
-
-    #[TestDox("Should instanciate a class from an array")]
-    public function testShouldBeValid()
+    #[TestDox("Should instantiate a class from an array")]
+    public function testShouldInstantiateFromArray(): array
     {
         $payload = [
             "str" => "String",
@@ -36,6 +43,8 @@ class FromArrayFactoryTest extends TestCase
             "float" => 3.1415,
             "bool" => true,
             "array" => ["my", "array"],
+            "mixed" => [0, 1.1, "2", false],
+            "name" => "Full Name"
         ];
 
         $instance = StubClass::fromArray($payload);
@@ -43,5 +52,17 @@ class FromArrayFactoryTest extends TestCase
         foreach ($payload as $prop => $expected) {
             $this->assertEquals($expected, $instance->{$prop});
         }
+
+        return [$payload, $instance];
+    }
+
+
+    #[Depends("testShouldInstantiateFromArray")]
+    #[TestDox("Should return all public properties as Key=>Value pair array")]
+    public function testShouldReturnPropertiesAsArray(array $data)
+    {
+        [$payload, $instance] = $data;
+        $payload["z"] = "z";
+        $this->assertEquals($payload, $instance->toArray());
     }
 }
