@@ -3,6 +3,7 @@
 namespace Torugo\Util\Traits;
 
 use ReflectionObject;
+use ReflectionProperty;
 
 trait FromArrayFactory
 {
@@ -52,9 +53,18 @@ trait FromArrayFactory
     /**
      * Get class properties as an array of ReflectionProperties
      * @param object $obj
+     * @param bool $publicOnly Return only public properties (default false)
      * @return array ReflectionProperties[]
      */
-    private static function getProperties(object $obj): array
+    private static function getProperties(
+        object $obj,
+        bool $publicOnly = false
+    ): array {
+        $reflection = new ReflectionObject($obj);
+        return $reflection->getProperties(
+            $publicOnly ? ReflectionProperty::IS_PUBLIC : null
+        );
+    }
     {
         $reflection = new ReflectionObject($obj);
         return $reflection->getProperties();
