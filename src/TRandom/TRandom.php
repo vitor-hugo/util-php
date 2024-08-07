@@ -41,7 +41,7 @@ class TRandom
 
 
     /**
-     * Generates a randon string with a given length.
+     * Generates a random string with a given length.
      * @param int $length Should be greater than zero.
      * @throws \InvalidArgumentException When length is lesser than one
      * @return string
