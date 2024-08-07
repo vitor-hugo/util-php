@@ -29,6 +29,10 @@ Library with useful classes and methods.
     - [Load file lines](#load-file-lines)
     - [Parsing .env files](#parsing-env-files)
     - [Parsing .json files](#parsing-json-files)
+  - [TID (Torugo ID)](#tid-torugo-id)
+    - [Generating](#generating)
+    - [Validating](#validating)
+    - [Getting Date and Time](#getting-date-and-time)
   - [TRandom](#trandom)
     - [Random strings](#random-strings)
     - [Random Numbers](#random-numbers)
@@ -371,6 +375,46 @@ In case of invalidation returns an empty array.
 $file = new TFile(__DIR__ . "/file.json");
 
 $json = $file->parseJson();
+```
+
+---
+
+## TID (Torugo ID)
+
+Generates a randomic unique ID with date and time.   
+
+```php
+use Torugo\Util\TID\TID;
+```
+
+This tool can generate three types of IDs:
+
+| Type   | Length | Sample                               |
+| ------ | :----: | ------------------------------------ |
+| Short  |   20   | QJLM77R-TS0SHULDI0SH                 |
+| Medium |   26   | KMSEEBAN-NC7V-TM0SHULDI0U2           |
+| Long   |   36   | PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT |
+
+### Generating
+
+```php
+$short = TID::short();
+$medium = TID::medium();
+$long = TID::long();
+```
+
+### Validating
+
+```php
+$tid = "PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT";
+TID::validate($tid); // returns true
+```
+
+### Getting Date and Time
+
+```php
+$tid = "PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT";
+TID::getDateTime($tid); // returns a PHP DateTime instance
 ```
 
 ---
