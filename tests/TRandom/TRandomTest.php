@@ -12,6 +12,13 @@ use Torugo\Util\TRandom\TRandom;
 #[TestDox("TRandom")]
 class TRandomTest extends TestCase
 {
+    private TRandom $stub;
+
+    public function setUp(): void
+    {
+        $this->stub = new TRandom();
+    }
+
     #[TestDox("number: Should genarate a random integer between a given range")]
     public function testShouldGenerateARandomNumber()
     {
@@ -25,7 +32,7 @@ class TRandomTest extends TestCase
         foreach ($ranges as $range) {
             $min = $range[0];
             $max = $range[1];
-            $rnd = TRandom::number($min, $max);
+            $rnd = $this->stub->number($min, $max);
             $this->assertIsInt($rnd);
             $this->assertTrue($rnd >= $min && $rnd <= $max);
         }
@@ -37,7 +44,7 @@ class TRandomTest extends TestCase
     {
         $min = 1000;
         $max = 500;
-        $rnd = TRandom::number($min, $max);
+        $rnd = $this->stub->number($min, $max);
         $this->assertIsInt($rnd);
         $this->assertTrue($rnd >= $max && $rnd <= $min);
     }
@@ -57,7 +64,7 @@ class TRandomTest extends TestCase
             $min = $arg[0];
             $max = $arg[1];
             $len = $arg[2];
-            $rnd = TRandom::lzNumber($min, $max, $len);
+            $rnd = $this->stub->lzNumber($min, $max, $len);
             $this->assertEquals($len, strlen($rnd));
         }
     }
@@ -66,10 +73,10 @@ class TRandomTest extends TestCase
     #[TestDox("lzNumber: Should fix length arg when null or lesser than max value length.")]
     public function testShouldFixLength()
     {
-        $rnd = TRandom::lzNumber(0, 9999, null);
+        $rnd = $this->stub->lzNumber(0, 9999, null);
         $this->assertEquals(4, strlen($rnd));
 
-        $rnd = TRandom::lzNumber(0, 9999, 3);
+        $rnd = $this->stub->lzNumber(0, 9999, 3);
         $this->assertEquals(4, strlen($rnd));
     }
 
@@ -79,7 +86,7 @@ class TRandomTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("(TRandom::lzNumber) The min and max arguments must be positive integers.");
-        TRandom::lzNumber(-200, -100, 3);
+        $this->stub->lzNumber(-200, -100, 3);
     }
 
 
@@ -88,7 +95,7 @@ class TRandomTest extends TestCase
     {
         $lenghts = [5, 10, 20, 30, 47, 54];
         foreach ($lenghts as $len) {
-            $rnd = TRandom::string($len);
+            $rnd = $this->stub->string($len);
             $this->assertEquals($len, strlen($rnd));
         }
     }
@@ -99,35 +106,35 @@ class TRandomTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("(TRandom::setCharacters) Insufficient number of characters, you must provide at least two.");
-        TRandom::setCharacters("A");
+        $this->stub->setCharacters("A");
     }
 
 
     #[TestDox("setCharacters: Should remove duplicated characters")]
     public function testShouldRemoveDuplicatedChars()
     {
-        TRandom::setCharacters("1122334455");
-        $this->assertEquals("12345", TRandom::getChars());
+        $this->stub->setCharacters("1122334455");
+        $this->assertEquals("12345", $this->stub->getChars());
     }
 
 
     #[TestDox("string: Should generate a random string with custom chars")]
     public function testShouldGenerateWithCustomChars()
     {
-        TRandom::setCharacters("0123456789");
-        $rnd = TRandom::string(20);
+        $this->stub->setCharacters("0123456789");
+        $rnd = $this->stub->string(20);
         $this->assertMatchesRegularExpression("/^[0-9]{20,20}$/", $rnd);
 
-        TRandom::setCharacters("0123456789abcdefghijklmnopqrstuvwxyz");
-        $rnd = TRandom::string(20);
+        $this->stub->setCharacters("0123456789abcdefghijklmnopqrstuvwxyz");
+        $rnd = $this->stub->string(20);
         $this->assertMatchesRegularExpression("/^[0-9a-z]{20,20}$/", $rnd);
 
-        TRandom::setCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        $rnd = TRandom::string(20);
+        $this->stub->setCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        $rnd = $this->stub->string(20);
         $this->assertMatchesRegularExpression("/^[A-Z]{20,20}$/", $rnd);
 
-        TRandom::setCharacters("01");
-        $rnd = TRandom::string(10);
+        $this->stub->setCharacters("01");
+        $rnd = $this->stub->string(10);
         $this->assertMatchesRegularExpression("/^[01]{10,10}$/", $rnd);
     }
 
@@ -136,6 +143,6 @@ class TRandomTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("(TRandom::string) The length argument must be greater than zero.");
-        TRandom::string(0);
+        $this->stub->string(0);
     }
 }
