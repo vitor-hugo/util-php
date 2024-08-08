@@ -13,12 +13,12 @@ class TRandom
      * Source chars for random string generator
      * @var string
      */
-    private static string $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!?#-_~^*";
+    private string $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!?#-_~^*";
 
 
-    public static function getChars(): string
+    public function getChars(): string
     {
-        return self::$chars;
+        return $this->chars;
     }
 
     /**
@@ -28,7 +28,7 @@ class TRandom
      * @throws \InvalidArgumentException When $chars arg length is lesser than two.
      * @return void
      */
-    public static function setCharacters(string $chars): void
+    public function setCharacters(string $chars): void
     {
         $chars = count_chars($chars, 3);
 
@@ -36,7 +36,7 @@ class TRandom
             throw new InvalidArgumentException("(TRandom::setCharacters) Insufficient number of characters, you must provide at least two.");
         }
 
-        self::$chars = $chars;
+        $this->chars = $chars;
     }
 
 
@@ -46,17 +46,17 @@ class TRandom
      * @throws \InvalidArgumentException When length is lesser than one
      * @return string
      */
-    public static function string(int $length): string
+    public function string(int $length): string
     {
         if ($length < 1) {
             throw new InvalidArgumentException("(TRandom::string) The length argument must be greater than zero.");
         }
 
         $rnd = '';
-        $charsLen = strlen(self::$chars) - 1;
+        $charsLen = strlen($this->chars) - 1;
 
         for ($i = 0; $i < $length; $i++) {
-            $rnd .= self::$chars[rand(0, $charsLen)];
+            $rnd .= $this->chars[rand(0, $charsLen)];
         }
 
         return $rnd;
@@ -69,7 +69,7 @@ class TRandom
      * @param int $max The greates value to be returned.
      * @return int
      */
-    public static function number(int $min, int $max): int
+    public function number(int $min, int $max): int
     {
         if ($min > $max) {
             list($min, $max) = [$max, $min];
@@ -87,7 +87,7 @@ class TRandom
      * @throws \InvalidArgumentException When min or max numbers is negative
      * @return string
      */
-    public static function lzNumber(
+    public function lzNumber(
         int $min,
         int $max,
         ?int $length = null
