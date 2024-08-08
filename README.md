@@ -425,6 +425,8 @@ Generates random strings and numbers
 
 ```php
 use Torugo\Util\TRandom\TRandom;
+
+$tRandom = new TRandom;
 ```
 
 ### Random strings
@@ -432,7 +434,7 @@ use Torugo\Util\TRandom\TRandom;
 Sets the source chars used to generate random strings.
 
 ```php
-$rnd = TRandom::string(10); // Generates 10 chars long random string
+$rnd = $tRandom->string(10); // Generates 10 chars long random string
 ```
 
 #### Default source characters <!-- omit in toc -->
@@ -442,8 +444,8 @@ The default source characters are:
 
 #### Setting the source characters <!-- omit in toc -->
 ```php
-TRandom::setCharacters("0123456789ABCDEF");
-TRandom::string(6); // Generates something like "E4A010"
+$random->setCharacters("0123456789ABCDEF");
+$random->string(6); // Generates something like "E4A010"
 ```
 
 ### Random Numbers
@@ -451,7 +453,7 @@ TRandom::string(6); // Generates something like "E4A010"
 Generates a random integer between the given range.
 
 ```php
-TRandom::number(1001, 9999); // Generates a random number between 1001 and 9999
+$tRandom->number(1001, 9999); // Generates a random number between 1001 and 9999
 ```
 
 ### Random Numbers with leading zeros
@@ -459,8 +461,8 @@ TRandom::number(1001, 9999); // Generates a random number between 1001 and 9999
 Generates a positive random integer with leading zeros.
 
 ```php
-TRandom::lzNumber(1, 9999, 4); // 0001 ... 9999
-TRandom::lzNumber(1001, 999999, null); // 001001 ... 999999
+$tRandom->lzNumber(1, 9999, 4); // 0001 ... 9999
+$tRandom->lzNumber(1001, 999999, null); // 001001 ... 999999
 ```
 
 ---
