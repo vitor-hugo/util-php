@@ -35,6 +35,7 @@ Library with useful classes and methods.
     - [Getting Date and Time](#getting-date-and-time)
   - [TRandom](#trandom)
     - [Random strings](#random-strings)
+      - [Parameters](#parameters)
     - [Random Numbers](#random-numbers)
     - [Random Numbers with leading zeros](#random-numbers-with-leading-zeros)
 - [Traits](#traits)
@@ -437,15 +438,28 @@ Sets the source chars used to generate random strings.
 $rnd = $tRandom->string(10); // Generates 10 chars long random string
 ```
 
-#### Default source characters <!-- omit in toc -->
+#### Parameters
 
-The default source characters are:  
-`0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!?#-_~^*`
+| Parameter            | Type   | Default                       | Description                                       |
+| -------------------- | ------ | ----------------------------- | ------------------------------------------------- |
+| `alpha`              | string | a...zA...Z                    | Alphabetical characters used to generate strings. |
+| `numbers`            | string | 0123456789                    | Numerical characters used to generate strings.    |
+| `symbols`            | string | !;#%&()*+,-./:;<=>?@[]^_{\|}~ | Special characters used to generate strings.      |
+| `includeAlpha`       | bool   | true                          | Should include alphabetical chars.                |
+| `includeNumbers`     | bool   | true                          | Should include numbers.                           |
+| `includeSymbols`     | bool   | true                          | Should include symbols.                           |
+| `startWithAlphaChar` | bool   | false                         | Should start with alphabetical characters.        |
+
 
 #### Setting the source characters <!-- omit in toc -->
+
 ```php
-$random->setCharacters("0123456789ABCDEF");
-$random->string(6); // Generates something like "E4A010"
+$random->alpha = "ABCDEF";
+$random->numbers = "123";
+$random->symbols = "#$%&*";
+
+$str = $random->string(10);
+// Generates a random string with the given characters.
 ```
 
 ### Random Numbers
