@@ -2,6 +2,7 @@
 
 namespace Tests\TRandom;
 
+use Exception;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -101,48 +102,110 @@ class TRandomTest extends TestCase
     }
 
 
-    #[TestDox("setCharacters: Should throw InvalidArgumentException when setting insufficient chars")]
-    public function testShouldThrowOnInsufficientChars()
+    #[TestDox("Should generate a random string with default parameters")]
+    public function testShouldGenerateWithDefaultParameters()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("(TRandom::setCharacters) Insufficient number of characters, you must provide at least two.");
-        $this->stub->setCharacters("A");
+        $pattern = "/^[0-9a-zA-Z!;#%&\(\)*+,\-.\/:;<=>?@\[\]\^_{|}~].+$/";
+
+        $sizes = [5, 10, 30, 50, 100];
+
+        foreach ($sizes as $size) {
+            $str = $this->stub->string($size);
+            $this->assertEquals($size, strlen($str));
+            $this->assertMatchesRegularExpression($pattern, $str);
+        }
     }
 
 
-    #[TestDox("setCharacters: Should remove duplicated characters")]
-    public function testShouldRemoveDuplicatedChars()
+    #[TestDox("Should generate a random string without symbols")]
+    public function testShouldGenerateWithoutSymbols()
     {
-        $this->stub->setCharacters("1122334455");
-        $this->assertEquals("12345", $this->stub->getChars());
+        $pattern = "/^[0-9a-zA-Z].+$/";
+        $sizes = [5, 10, 30, 50, 100];
+
+        $this->stub->includeSymbols = false;
+        foreach ($sizes as $size) {
+            $str = $this->stub->string($size);
+            $this->assertEquals($size, strlen($str));
+            $this->assertMatchesRegularExpression($pattern, $str);
+        }
     }
 
 
-    #[TestDox("string: Should generate a random string with custom chars")]
-    public function testShouldGenerateWithCustomChars()
+    #[TestDox("Should generate a random string without numbers")]
+    public function testShouldGenerateWithoutNumbers()
     {
-        $this->stub->setCharacters("0123456789");
-        $rnd = $this->stub->string(20);
-        $this->assertMatchesRegularExpression("/^[0-9]{20,20}$/", $rnd);
+        $pattern = "/^[a-zA-Z!;#%&\(\)*+,\-.\/:;<=>?@\[\]\^_{|}~].+$/";
+        $sizes = [5, 10, 30, 50, 100];
 
-        $this->stub->setCharacters("0123456789abcdefghijklmnopqrstuvwxyz");
-        $rnd = $this->stub->string(20);
-        $this->assertMatchesRegularExpression("/^[0-9a-z]{20,20}$/", $rnd);
-
-        $this->stub->setCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        $rnd = $this->stub->string(20);
-        $this->assertMatchesRegularExpression("/^[A-Z]{20,20}$/", $rnd);
-
-        $this->stub->setCharacters("01");
-        $rnd = $this->stub->string(10);
-        $this->assertMatchesRegularExpression("/^[01]{10,10}$/", $rnd);
+        $this->stub->includeNumbers = false;
+        foreach ($sizes as $size) {
+            $str = $this->stub->string($size);
+            $this->assertEquals($size, strlen($str));
+            $this->assertMatchesRegularExpression($pattern, $str);
+        }
     }
+
+
+    #[TestDox("Should generate a random string without alpha chars")]
+    public function testShouldGenerateWithoutAlphabeticalChars()
+    {
+        $pattern = "/^[0-9!;#%&\(\)*+,\-.\/:;<=>?@\[\]\^_{|}~].+$/";
+        $sizes = [5, 10, 30, 50, 100];
+
+        $this->stub->includeAlpha = false;
+        foreach ($sizes as $size) {
+            $str = $this->stub->string($size);
+            $this->assertEquals($size, strlen($str));
+            $this->assertMatchesRegularExpression($pattern, $str);
+        }
+    }
+
+
+    #[TestDox("Should throw exception when all parameters are disabled")]
+    public function testShouldThrowWhenAllParamsAreDisabled()
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Could not generate a randomic string, please check class parameters.");
+        $this->stub->includeAlpha = false;
+        $this->stub->includeNumbers = false;
+        $this->stub->includeSymbols = false;
+
+        $this->stub->string(10);
+    }
+
 
     #[TestDox("Should throw InvalidArgumentException when length is lesser than one")]
     public function testShouldThrowWhenLengthIsLesserThanOne()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("(TRandom::string) The length argument must be greater than zero.");
+        $this->expectExceptionMessage("The length argument must be greater than zero.");
         $this->stub->string(0);
+    }
+
+
+    #[TestDox("Should generate a string with custom characters")]
+    public function testShouldGenerateAStringWithCustomCharacters()
+    {
+        $this->stub->alpha = "ABCDEF";
+        $this->stub->includeSymbols = false;
+        $str = $this->stub->string(20);
+        $this->assertMatchesRegularExpression("/^[A-F0-9]{20}$/", $str);
+    }
+
+
+    #[TestDox("Should start a random string with alphabetical character")]
+    public function testShouldStartWithAplhaChar()
+    {
+        $this->stub->alpha = "ABCDEF";
+        $this->stub->includeAlpha = true;
+        $this->stub->includeNumbers = true;
+        $this->stub->includeSymbols = true;
+        $this->stub->startWithAlphaChar = true;
+
+        for ($i = 0; $i < 100; $i++) {
+            $str = $this->stub->string(10);
+            $this->assertMatchesRegularExpression("/^[A-F]/", $str);
+        }
     }
 }
