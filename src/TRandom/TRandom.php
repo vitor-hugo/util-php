@@ -2,6 +2,7 @@
 
 namespace Torugo\Util\TRandom;
 
+use Exception;
 use InvalidArgumentException;
 
 /**
@@ -10,53 +11,88 @@ use InvalidArgumentException;
 class TRandom
 {
     /**
-     * Source chars for random string generator
+     * Alphabetical characters
      * @var string
      */
-    private string $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!?#-_~^*";
-
-
-    public function getChars(): string
-    {
-        return $this->chars;
-    }
+    public string $alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
-     * Sets the source chars used to generate random strings.
-     * Default is "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!?#-_~^*".
-     * @param string $chars At least two diferent characters.
-     * @throws \InvalidArgumentException When $chars arg length is lesser than two.
-     * @return void
+     * Numeric characters
+     * @var string
      */
-    public function setCharacters(string $chars): void
-    {
-        $chars = count_chars($chars, 3);
+    public string $numbers = "0123456789";
 
-        if (strlen($chars) < 2) {
-            throw new InvalidArgumentException("(TRandom::setCharacters) Insufficient number of characters, you must provide at least two.");
-        }
+    /**
+     * Special characters
+     * @var string
+     */
+    public string $symbols = "!;#%&()*+,-./:;<=>?@[]^_{|}~";
 
-        $this->chars = $chars;
-    }
+    /**
+     * Should include alphabetical characters on randomic strings
+     * @var bool
+     */
+    public bool $includeAlpha = true;
 
+    /**
+     * Should include numeric characters on randomic strings
+     * @var bool
+     */
+    public bool $includeNumbers = true;
+
+    /**
+     * Should include special characters on randomic strings
+     * @var bool
+     */
+    public bool $includeSymbols = true;
+
+    /**
+     * Randomic string should start with an alphabetical character
+     * @var bool
+     */
+    public bool $startWithAlphaChar = false;
 
     /**
      * Generates a random string with a given length.
      * @param int $length Should be greater than zero.
-     * @throws \InvalidArgumentException When length is lesser than one
      * @return string
+     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function string(int $length): string
     {
         if ($length < 1) {
-            throw new InvalidArgumentException("(TRandom::string) The length argument must be greater than zero.");
+            throw new InvalidArgumentException("The length argument must be greater than zero.");
         }
 
-        $rnd = '';
-        $charsLen = strlen($this->chars) - 1;
+        $chars = "";
+
+        if ($this->includeAlpha) {
+            $chars .= $this->alpha;
+        }
+
+        if ($this->includeNumbers) {
+            $chars = $this->numbers;
+        }
+
+        if ($this->includeSymbols) {
+            $chars .= $this->includeSymbols;
+        }
+
+        if (empty($chars)) {
+            throw new Exception("Could not generate a randomic string, please check class parameters.");
+        }
+
+        $rnd = "";
+        $charsLen = strlen($chars) - 1;
 
         for ($i = 0; $i < $length; $i++) {
-            $rnd .= $this->chars[rand(0, $charsLen)];
+            if ($this->startWithAlphaChar) {
+                $rnd .= $this->alpha[mt_rand(0, strlen($this->alpha) - 1)];
+                continue;
+            }
+
+            $rnd .= $chars[rand(0, $charsLen)];
         }
 
         return $rnd;
@@ -72,10 +108,10 @@ class TRandom
     public function number(int $min, int $max): int
     {
         if ($min > $max) {
-            list($min, $max) = [$max, $min];
+            [$min, $max] = [$max, $min];
         }
 
-        return random_int($min, $max);
+        return mt_rand($min, $max);
     }
 
 
