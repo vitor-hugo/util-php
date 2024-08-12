@@ -72,7 +72,7 @@ class TRandom
         }
 
         if ($this->includeNumbers) {
-            $chars = $this->numbers;
+            $chars .= $this->numbers;
         }
 
         if ($this->includeSymbols) {
