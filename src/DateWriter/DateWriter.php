@@ -39,6 +39,36 @@ class DateWriter
      */
     public function write(string $format): string
     {
+        $formatArray = str_split($format);
+
+        $result = "";
+        $ignore = false;
+
+        foreach ($formatArray as $f) {
+            $ignore = $f === "[" ? true : $ignore;
+            $ignore = $f === "]" ? false : $ignore;
+
+            if ($f === "[" || $f === "]") {
+                continue;
+            }
+
+            if ($ignore) {
+                $result .= $f;
+                continue;
+            }
+
+            $result .= $this->parseFormatChar($f);
+        }
+
+        $result = $this->resolveUppercaseMarks($result);
+        $result = $this->resolveLowercaseMarks($result);
+
+        return $result;
+    }
+
+
+    private function parseFormatChar(string $char): string
+    {
         $lang = $this->language;
         $dt = $this->dateTime;
 
@@ -51,7 +81,7 @@ class DateWriter
 
         $ordinal = $ordinals[$dt->format("S")];
 
-        $options = [
+        return match ($char) {
             "d" => $dt->format("d"),
             "j" => $dt->format("j"),
             "D" => Intl::SHORT_WEEK_DAY[$lang][$dt->format("w")],
@@ -93,33 +123,8 @@ class DateWriter
             "c" => $dt->format("c"),
             "r" => $dt->format("r"),
             "U" => $dt->format("U"),
-        ];
-
-        $formatArray = str_split($format);
-
-        $result = "";
-        $ignore = false;
-
-        foreach ($formatArray as $f) {
-            $ignore = $f === "[" ? true : $ignore;
-            $ignore = $f === "]" ? false : $ignore;
-
-            if ($f === "[" || $f === "]") {
-                continue;
-            }
-
-            if ($ignore) {
-                $result .= $f;
-                continue;
-            }
-
-            $result .= $options[$f] ?? $f;
-        }
-
-        $result = $this->resolveUppercaseMarks($result);
-        $result = $this->resolveLowercaseMarks($result);
-
-        return $result;
+            default => $char,
+        };
     }
 
 
