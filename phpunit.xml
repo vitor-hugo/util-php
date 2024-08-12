@@ -3,7 +3,7 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.1/phpunit.xsd"
          defaultTestSuite="default"
          cacheDirectory="tests/cache/"
-         executionOrder="depends,defects"
+         executionOrder="default"
          beStrictAboutCoverageMetadata="true"
          beStrictAboutOutputDuringTests="true"
          failOnRisky="true"
