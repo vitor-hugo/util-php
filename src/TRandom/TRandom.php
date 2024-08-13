@@ -76,7 +76,7 @@ class TRandom
         }
 
         if ($this->includeSymbols) {
-            $chars .= $this->includeSymbols;
+            $chars .= $this->symbols;
         }
 
         if (empty($chars)) {
