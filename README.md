@@ -29,7 +29,7 @@ Library with useful classes and methods.
     - [Load file lines](#load-file-lines)
     - [Parsing .env files](#parsing-env-files)
     - [Parsing .json files](#parsing-json-files)
-  - [TID (Torugo ID)](#tid-torugo-id)
+  - [TUID (Torugo Unique ID)](#tuid-torugo-unique-id)
     - [Generating](#generating)
     - [Validating](#validating)
     - [Getting Date and Time](#getting-date-and-time)
@@ -380,12 +380,12 @@ $json = $file->parseJson();
 
 ---
 
-## TID (Torugo ID)
+## TUID (Torugo Unique ID)
 
 Generates a randomic unique ID with date and time.   
 
 ```php
-use Torugo\Util\TID\TID;
+use Torugo\Util\TUID\TUID;
 ```
 
 This tool can generate three types of IDs:
@@ -399,23 +399,23 @@ This tool can generate three types of IDs:
 ### Generating
 
 ```php
-$short = TID::short();
-$medium = TID::medium();
-$long = TID::long();
+$short = TUID::short();
+$medium = TUID::medium();
+$long = TUID::long();
 ```
 
 ### Validating
 
 ```php
-$tid = "PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT";
-TID::validate($tid); // returns true
+$tuid = "PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT";
+TUID::validate($tuid); // returns true
 ```
 
 ### Getting Date and Time
 
 ```php
-$tid = "PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT";
-TID::getDateTime($tid); // returns a PHP DateTime instance
+$tuid = "PVA4M433-20L5-K1HVUPLQW-TL0SHULDI0VT";
+TUID::getDateTime($tuid); // returns a PHP DateTime instance
 ```
 
 ---

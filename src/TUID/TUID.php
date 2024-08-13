@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Torugo\Util\TID;
+namespace Torugo\Util\TUID;
 
 use DateTime;
 use Torugo\Util\CDT\CDT;
 
 /**
- * TID (Torugo Identifier) generates a random unique ID with date and time.
+ * TUID (Torugo Unique Identifier) generates a random unique ID with date and time.
  */
-class TID
+class TUID
 {
     private const PATTERN_SHORT = "/^[A-Z][A-Z0-9]{6}-TS[A-Z0-9]{10}$/";
     private const PATTERN_MEDIUM = "/^[A-Z][A-Z0-9]{7}-[A-Z0-9]{4}-TM[A-Z0-9]{10}$/";
@@ -92,8 +92,8 @@ class TID
 
 
     /**
-     * Validates a TID
-     * @param string $tid TID to be validated
+     * Validates a TUID
+     * @param string $tid TUID to be validated
      * @return bool
      */
     public static function validate(string $tid): bool
