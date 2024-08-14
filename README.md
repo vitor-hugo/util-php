@@ -29,6 +29,7 @@ Library with useful classes and methods.
     - [Load file lines](#load-file-lines)
     - [Parsing .env files](#parsing-env-files)
     - [Parsing .json files](#parsing-json-files)
+    - [Parsing .key files](#parsing-key-files)
   - [TUID (Torugo Unique ID)](#tuid-torugo-unique-id)
     - [Generating](#generating)
     - [Validating](#validating)
@@ -376,6 +377,40 @@ In case of invalidation returns an empty array.
 $file = new TFile(__DIR__ . "/file.json");
 
 $json = $file->parseJson();
+```
+
+### Parsing .key files
+Loads a .key file content and returns the key from it.
+
+The key file, is a text file that contains a key splitted in lines.  
+The key MUST be surrounded by `-----BEGIN-----` and `-----END-----`.
+
+**.key file example**
+```
+-----BEGIN-----
+UjNbMRDfsFyfEtgMVXUhhUqNiIEWxNyChFzuTRFwWgupYgbgnseckyLXmQTzjdyf
+nQnmKFAiPQCyTjpqiBlewFUPdBlViQejeCZaLlLvbzLSAZgKUcRDWGqiPCrxhprO
+BozroybWrtgzUfkdQbDzukaEidtADbsQQUTteFSIlNvyrrbbYJpzAkFrGiexsjOb
+sSSwNsYcCzyRTDQoJIemWtGAJMyPSTJoaGTbShtJejVRmhPwpmcTFImkaKXIPNnl
+HOQKUDnhoDQFXVsFueCFXRfrEPiieJSJUEGBmmCJFoMFNOsEVgoXIPMVyaFiZgbi
+vZNKyydWKNXqrJfvWwHZPnTvIyGRzgqicEjdnNrlqsLYmKCpjeuVmvteBSIZCuLs
+KlcqBtYhbeoTfUesqTwGDftjjSFHNWHirwWPdusiGUqDzjlzJPiaBsosBFyeziHb
+kaEdZEpTOUoRYiFAmtiVHqPFFfwxytrzQkwfoGORYviXdyfRYYfcOLKZlwoDUMnm
+dsUrbfhhScMFUrPtRijXiuTwkcyacOTojJEvtafFgiETIPzHfvNiXFFxYmNhbftJ
+hMwvJQpYwykHNekNYFJbIfepGErQrAxuDSeOddKKgYoDfSeZzbPeabrtavJWjXgb
+wSQPVFBJtyEBuyQilRHKQduJOKOBYuwOhlWvJzqxeywCAaAYFyVtHcSFjyxYVgzy
+rKjtjbJnAyyfkAUZawctbPqfCkqovijpoomjLsPIYWOMLkdfyktwCorpbKayFEnJ
+OIiGAamMuGMheNadiGJGIAvwJIOcnAugRmiCKFbDWdSgGZZHjdeUbZyEJMJxzPcx
+ZKKQEfQqIAZSpGSaKHNsfBLKMhRkEmqIkKTopzPJisPalGJqobiaGMifFPwnzHNd
+RCRWklziDGeAbLZAVwByJpFHShtPETUcypXgWNTECHhxsveQtgFqPWqEPQPyFsfW
+OrHzAMARDiHywWmmeLGyrrJDTnuXClvVIKvTuUQXwXymnqDmroUXRMbuykvcaGPP
+-----END-----
+```
+
+```php
+$file = new TFile(__DIR__ . "/mykey.key");
+
+$key = $file->parseKeyFile();
 ```
 
 ---
