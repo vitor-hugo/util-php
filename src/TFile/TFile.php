@@ -2,6 +2,7 @@
 
 namespace Torugo\Util\TFile;
 
+use Exception;
 use InvalidArgumentException;
 
 class TFile
@@ -165,6 +166,43 @@ class TFile
         $json = json_decode($content, true, $depth, $flags);
 
         return $json ?? [];
+    }
+
+
+    /**
+     * Loads a .key file content and returns the key from it.
+     * @return string The key retrived from the file content.
+     * @throws Exception When the key file is invalid.
+     */
+    public function parseKeyFile(): string
+    {
+        $lines = $this->getLines();
+
+        $key = "";
+        $begin = false;
+        $end = false;
+
+        foreach ($lines as $line) {
+            if ($line === "-----BEGIN-----") {
+                $begin = true;
+                continue;
+            }
+
+            if ($line === "-----END-----") {
+                $end = true;
+                break;
+            }
+
+            if ($begin) {
+                $key .= $line;
+            }
+        }
+
+        if (!$begin || !$end) {
+            throw new Exception("Invalid KEY file.");
+        }
+
+        return $key;
     }
 
 
