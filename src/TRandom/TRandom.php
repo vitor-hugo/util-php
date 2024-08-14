@@ -86,9 +86,12 @@ class TRandom
         $rnd = "";
         $charsLen = strlen($chars) - 1;
 
+        $startWithAlpha = $this->startWithAlphaChar;
+
         for ($i = 0; $i < $length; $i++) {
-            if ($this->startWithAlphaChar) {
+            if ($startWithAlpha) {
                 $rnd .= $this->alpha[mt_rand(0, strlen($this->alpha) - 1)];
+                $startWithAlpha = false;
                 continue;
             }
 
