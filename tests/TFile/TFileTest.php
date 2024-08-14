@@ -2,6 +2,7 @@
 
 namespace Tests\TFile;
 
+use Exception;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -136,5 +137,34 @@ class TFileTest extends TestCase
     {
         $file = new TFile(__DIR__ . "/TestFiles/readonly.txt");
         $this->assertFalse($file->isWritable());
+    }
+
+
+    #[TestDox("Should parse KEY files")]
+    public function testShouldParaseKeyFiles()
+    {
+        $key = "qtTPBKmLCFkxhhJdfLdHBFBVHOnZqSYuxXlkwICrFQoxppjeOhECPZNx";
+        $key .= "JwCGfbaKkcHouFTEtpGqZMslvpMtpmZrkmxfPUtmgOCkWoXRaxCceWZU";
+        $key .= "SjoWhTLTfLjTuuArXFgSRkXHBRZYvIAOxBVfcLjEsRuNzdrhpsFoYDkT";
+        $key .= "OnJlmMQBFpHPbgxfgQZqmIQtbxuFpKYdTSGvtRLNEWeneGFnbMPhUZBR";
+        $key .= "MsPnAQdykmbSHZcFOjRFocTrtjblReAkHyOliTzNrvjAtjNHLrtowfJk";
+        $key .= "NcHwSzLkRLACJKfzVnRqOjXKskGmVikEfFFwzlpNpQnPUrTvebkqtyfZ";
+        $key .= "KsjKQszuDBUjkfvXKEbRXTrGmzjpqVIlqGVyEzOHanLnFskwSmyFMebD";
+        $key .= "JMzLRlODkZcdKSggzObSKfsVoTcwBCIULcZkGblMJuelyafhOEcTcECj";
+        $key .= "blZEFhNYfLSbOvuDXFlmMlJkJMjrWAKEHNsYIpAjhglOEkqKIAoRNueu";
+        $key .= "GFOhfxvteQkRIGpoXjknjPtwAQZgiWdINfsfNWRoeFRygPsKSZVksWYd";
+
+        $file = new TFile(__DIR__ . "/TestFiles/token.key");
+        $this->assertEquals($key, $file->parseKeyFile());
+    }
+
+
+    #[TestDox("Should throw Exception when trying to parse an invalid KEY file")]
+    public function testShouldThrowWhenTryingToParseAnInvalidKeyFile()
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid KEY file.");
+        $file = new TFile(__DIR__ . "/TestFiles/source.json");
+        $file->parseKeyFile();
     }
 }
