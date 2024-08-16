@@ -30,6 +30,10 @@ Library with useful classes and methods.
     - [Parsing .env files](#parsing-env-files)
     - [Parsing .json files](#parsing-json-files)
     - [Parsing .key files](#parsing-key-files)
+  - [TPass](#tpass)
+    - [Options](#options)
+    - [Setting symbols source](#setting-symbols-source)
+    - [Checking password strength](#checking-password-strength)
   - [TUID (Torugo Unique ID)](#tuid-torugo-unique-id)
     - [Generating](#generating)
     - [Validating](#validating)
@@ -411,6 +415,64 @@ OrHzAMARDiHywWmmeLGyrrJDTnuXClvVIKvTuUQXwXymnqDmroUXRMbuykvcaGPP
 $file = new TFile(__DIR__ . "/mykey.key");
 
 $key = $file->parseKeyFile();
+```
+
+---
+
+## TPass
+
+Generates random passwords, and checks password strength
+
+```php
+use Torugo\Util\TPass\TPass;
+```
+
+### Options
+
+| Option           | Type | Default | Description                         |
+| ---------------- | ---- | ------- | ----------------------------------- |
+| includeLowercase | bool | true    | Include lowercased letters          |
+| includeUppercase | bool | true    | Include uppercased letters          |
+| includeNumbers   | bool | true    | Include numeric characters          |
+| includeSymbols   | bool | true    | Include special characters          |
+| beginWithALetter | bool | false   | Password should begin with a letter |
+
+>[!NOTE]
+> When enabling `beginWithALetter` assure that
+> `includeLowercase` or `includeUppercase` is enabled.
+
+### Setting symbols source
+
+The default symbols source is `!;#$%&()*+,-./:;<=>?@[]^_{|}~`;
+
+To set a custom symbols source, use the method `setSymbols`.
+
+### Checking password strength
+
+To check the password strength use the method `checkPasswordStrength`;
+
+It returns an int value from 0 to 4, where:
+
+```
+0 = Very week
+1 = week
+2 = medium
+3 = strong
+4 = very strong
+```
+
+**Examples**
+
+```
+"123456" => 0,
+"112233" => 0,
+"admin" => 0,
+"password" => 0,
+"psw1223!A" => 1,
+"NU$;K^9" => 2,
+"NU$;k3+" => 3,
+"NU$;K^+B#D!;+D%8nP" => 4,
+"123456NU$;K^+B#D!;+D%8nP" => 4,
 ```
 
 ---
