@@ -183,12 +183,12 @@ class TFile
         $end = false;
 
         foreach ($lines as $line) {
-            if ($line === "-----BEGIN-----") {
+            if (preg_match_all("/^\-{5}BEGIN([A-Z0-9\s].+)?\-{5}$/", $line)) {
                 $begin = true;
                 continue;
             }
 
-            if ($line === "-----END-----") {
+            if (preg_match_all("/^\-{5}END([A-Z0-9\s].+)?\-{5}$/", $line)) {
                 $end = true;
                 break;
             }
