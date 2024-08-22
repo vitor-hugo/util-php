@@ -47,6 +47,10 @@ trait FromArrayFactory
 
         }
 
+        if (self::hasMethodAfterFromArrayCallback($obj)) {
+            $obj->afterFromArrayCallback();
+        }
+
         return $obj;
     }
 
@@ -64,6 +68,23 @@ trait FromArrayFactory
         return $reflection->getProperties(
             $publicOnly ? ReflectionProperty::IS_PUBLIC : null
         );
+    }
+
+    /**
+     * Checks if the class has the method 'afterFromArrayCallback'
+     * @param object $obj
+     * @return bool
+     */
+    private static function hasMethodAfterFromArrayCallback(object $obj): bool
+    {
+        try {
+            $reflection = new ReflectionObject($obj);
+            $method = $reflection->getMethod("afterFromArrayCallback");
+        } catch (\Throwable $th) {
+            $method = null;
+        }
+
+        return $method != null;
     }
 
     /**
