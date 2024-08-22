@@ -23,9 +23,21 @@ class StubClass
     protected string $x;
     private mixed $y;
 
-
     public function __construct(readonly string $z = "z")
     {
+    }
+}
+
+class StubClassAfter
+{
+    use FromArrayFactory;
+
+    public string $before = "";
+    public string $after = "";
+
+    private function afterFromArrayCallback(): void
+    {
+        $this->after = mb_strtoupper("{$this->before}!!!");
     }
 }
 
@@ -64,5 +76,18 @@ class FromArrayFactoryTest extends TestCase
         [$payload, $instance] = $data;
         $payload["z"] = "z";
         $this->assertEquals($payload, $instance->toArray());
+    }
+
+    #[TestDox("Should call afterFromArrayCallback() method")]
+    public function testShouldCallAfterFromArrayCallbackMethod()
+    {
+        $payload = [
+            "before" => "come to the dark side of the force",
+        ];
+
+        $stub = StubClassAfter::fromArray($payload);
+
+        $this->assertEquals($payload["before"], $stub->before);
+        $this->assertEquals("COME TO THE DARK SIDE OF THE FORCE!!!", $stub->after);
     }
 }
