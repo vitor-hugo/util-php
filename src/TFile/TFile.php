@@ -81,7 +81,6 @@ class TFile
      * @return string
      */
     public function getContent(
-        mixed $context = null,
         int $offset = 0,
         int|null $length = null
     ): string {
