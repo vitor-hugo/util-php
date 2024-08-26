@@ -68,6 +68,19 @@ class TFileTest extends TestCase
     }
 
 
+    #[TestDox("Should return the file's content")]
+    public function testShouldReturnTheFilesContent()
+    {
+        $file = new TFile(__DIR__ . "/TestFiles/content.txt");
+        $content = $file->getContent();
+        $this->assertStringContainsString("Tomara", $content);
+        $this->assertStringContainsString("saudade", $content);
+        $this->assertStringContainsString("mundo", $content);
+        $this->assertStringContainsString("Como nunca mais...", $content);
+        $this->assertStringContainsString("Vinícius de Moraes", $content);
+    }
+
+
     #[TestDox("Should load env file content as associative array")]
     #[WithoutErrorHandler()]
     public function testShouldParseEnvFile()
