@@ -73,6 +73,29 @@ class TFile
 
 
     /**
+     * Returns entire file as a string.
+     * @param int $offset The offset where the reading starts on the original
+     *                    stream. Negative offsets count from the end of the stream.
+     * @param int|null $length Maximum length of data read. The default is to
+     *                         read until end of file is reached.
+     * @return string
+     */
+    public function getContent(
+        mixed $context = null,
+        int $offset = 0,
+        int|null $length = null
+    ): string {
+        return file_get_contents(
+            $this->path,
+            false,
+            null,
+            $offset,
+            $length
+        );
+    }
+
+
+    /**
      * Parses the content of an env file and returns it as an associative array.
      * @return array
      */
