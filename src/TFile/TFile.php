@@ -23,7 +23,7 @@ class TFile
     /**
      * Check if file exists
      * @param string $path
-     * @param string $createIfNotExists
+     * @param bool $createIfNotExists
      * @return bool
      */
     public static function exists(string $path, bool $createIfNotExists = false): bool
