@@ -28,15 +28,11 @@ class TFile
      */
     public static function exists(string $path, bool $createIfNotExists = false): bool
     {
-        $file = @fopen($path, "r");
+        $file = @fopen($path, $createIfNotExists ? "a" : "r");
 
         if ($file) {
             fclose($file);
             return true;
-        }
-
-        if ($createIfNotExists) {
-            return self::create($path);
         }
 
         return false;
