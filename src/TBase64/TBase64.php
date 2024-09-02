@@ -43,7 +43,13 @@ class TBase64
             $encoded .= str_repeat("=", $pad);
         }
 
-        $result = strtr($encoded, "-_", "+/");
-        return base64_decode($result);
+        $decoded = strtr($encoded, "-_", "+/");
+        $result = base64_decode($decoded);
+
+        if ($result == false) {
+            return "";
+        }
+
+        return $result;
     }
 }
