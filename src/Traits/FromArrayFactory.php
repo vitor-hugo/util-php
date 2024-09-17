@@ -47,8 +47,8 @@ trait FromArrayFactory
 
         }
 
-        if (self::hasMethodAfterFromArrayCallback($obj)) {
-            $obj->afterFromArrayCallback();
+        if (self::hasMethodAfterFromArrayConstructor($obj)) {
+            $obj->afterFromArrayConstructor();
         }
 
         return $obj;
@@ -71,15 +71,15 @@ trait FromArrayFactory
     }
 
     /**
-     * Checks if the class has the method 'afterFromArrayCallback'
+     * Checks if the class has the method 'afterFromArrayConstructor'
      * @param object $obj
      * @return bool
      */
-    private static function hasMethodAfterFromArrayCallback(object $obj): bool
+    private static function hasMethodAfterFromArrayConstructor(object $obj): bool
     {
         try {
             $reflection = new ReflectionObject($obj);
-            $method = $reflection->getMethod("afterFromArrayCallback");
+            $method = $reflection->getMethod("afterFromArrayConstructor");
         } catch (\Throwable $th) {
             $method = null;
         }
