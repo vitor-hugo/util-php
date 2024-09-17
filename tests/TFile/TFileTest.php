@@ -31,7 +31,6 @@ class TFileTest extends TestCase
         $this->assertFalse(TFile::exists(__DIR__ . "/TestFiles/ source.json"));
     }
 
-
     #[TestDox("Should create file if not exists")]
     public function testShouldCreateFileIfNotExists()
     {
@@ -39,6 +38,13 @@ class TFileTest extends TestCase
         unlink(__DIR__ . "/TestFiles/.test");
     }
 
+    #[TestDox("Should create file and return a new instance")]
+    public function testShouldCreateFileAndReturnANewInstance()
+    {
+        $file = TFile::create(__DIR__ . "/TestFiles/.test");
+        $this->assertInstanceOf(TFile::class, $file);
+        unlink(__DIR__ . "/TestFiles/.test");
+    }
 
     #[TestDox("Should return false when cannot create a file")]
     public function testShouldReturnFalseWhenCannotCreateAFile()
@@ -48,7 +54,7 @@ class TFileTest extends TestCase
 
 
     #[TestDox("Should instanciate TFile correctly when file exists")]
-    public function test()
+    public function testShouldBeValid()
     {
         $file1 = new TFile(__DIR__ . "/TestFiles/source.json");
         $this->assertInstanceOf(TFile::class, $file1);
@@ -179,5 +185,39 @@ class TFileTest extends TestCase
         $this->expectExceptionMessage("Invalid KEY file.");
         $file = new TFile(__DIR__ . "/TestFiles/source.json");
         $file->parseKeyFile();
+    }
+
+    #[TestDox("Should add some content at the end of a file")]
+    public function testShouldAddContentAtTheEndOfAFile()
+    {
+        $text = "Adding some content" . PHP_EOL;
+
+        $file = new TFile(__DIR__ . "/TestFiles/empty.txt");
+        $this->assertTrue($file->addContent($text));
+
+        $lines = $file->getLines();
+        $this->assertStringContainsString(end($lines), $text);
+    }
+
+    #[TestDox("Should wipe all file content")]
+    public function testShouldWipeAllFileContent()
+    {
+        $file = new TFile(__DIR__ . "/TestFiles/empty.txt");
+        $this->assertTrue($file->clearContent());
+        $this->assertEmpty($file->getLines());
+    }
+
+    #[TestDox("Should return false when trying to add content on a readonly file")]
+    public function testShouldReturnFalseWhenTryingToAddContentOnAReadOnlyFile()
+    {
+        $file = new TFile(__DIR__ . "/TestFiles/readonly.txt");
+        $this->assertFalse($file->addContent("read only"));
+    }
+
+    #[TestDox("Should return false when trying to clear a readonly file")]
+    public function testShouldReturnFalseWhenTryingToClearAReadOnlyFile()
+    {
+        $file = new TFile(__DIR__ . "/TestFiles/readonly.txt");
+        $this->assertFalse($file->clearContent());
     }
 }
