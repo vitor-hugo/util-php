@@ -232,4 +232,37 @@ class TFile
     {
         return is_writable($this->path);
     }
+
+    /**
+     * Adds some content at the end of the file
+     * @param string|array $content Content to be added
+     * @return bool Returns `true` on success or `false` on failure
+     */
+    public function addContent(string|array $content): bool
+    {
+        if (!$this->isWritable()) {
+            return false;
+        }
+
+        $result = file_put_contents(
+            $this->path,
+            $content,
+            FILE_APPEND | LOCK_EX
+        );
+
+        return $result !== false;
+    }
+
+    /**
+     * Clears the file content
+     * @return bool
+     */
+    public function clearContent(): bool
+    {
+        if (@file_put_contents($this->path, "") === false) {
+            return false;
+        }
+
+        return true;
+    }
 }
