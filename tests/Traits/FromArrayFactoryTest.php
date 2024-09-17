@@ -35,7 +35,7 @@ class StubClassAfter
     public string $before = "";
     public string $after = "";
 
-    private function afterFromArrayCallback(): void
+    private function afterFromArrayConstructor(): void
     {
         $this->after = mb_strtoupper("{$this->before}!!!");
     }
@@ -78,8 +78,8 @@ class FromArrayFactoryTest extends TestCase
         $this->assertEquals($payload, $instance->toArray());
     }
 
-    #[TestDox("Should call afterFromArrayCallback() method")]
-    public function testShouldCallAfterFromArrayCallbackMethod()
+    #[TestDox("Should call afterFromArrayConstructor() method")]
+    public function testShouldCallAfterFromArrayConstructorMethod()
     {
         $payload = [
             "before" => "come to the dark side of the force",
