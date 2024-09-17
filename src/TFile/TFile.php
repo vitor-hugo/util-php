@@ -42,15 +42,15 @@ class TFile
     /**
      * Creates a file on a given path
      * @param string $path Path where file will be created
-     * @return bool Return if file was created or not
+     * @return self|false Returns a TFile instance or fase in case of error
      */
-    public static function create(string $path): bool
+    public static function create(string $path): self|bool
     {
         $file = @fopen($path, "a");
 
         if ($file) {
             fclose($file);
-            return true;
+            return new TFile($path);
         }
 
         return false;
